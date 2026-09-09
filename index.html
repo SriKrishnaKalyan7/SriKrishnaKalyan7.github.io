@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#f5f1e8">
+<title>Sri Krishna Kalyan Bandaru — Data Analyst</title>
+<meta name="description" content="Data Analyst in Adelaide, SA. SQL, Power BI and Python. I find the cause behind a number that moved and make the decision obvious. Open to work.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://srikrishnakalyan7.github.io/">
+<meta property="og:title" content="Sri Krishna Kalyan Bandaru — Data Analyst">
+<meta property="og:description" content="Turning messy data into decisions people act on. SQL · Power BI · Python · Experiment design.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230047FF'/><text x='16' y='22' font-family='serif' font-size='18' font-weight='700' fill='white' text-anchor='middle'>S</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0c0b09;--ink-2:#4a4845;--ink-3:#6b6865;
+  --blue:#0047FF;--blue-dim:rgba(0,71,255,0.12);--blue-glow:rgba(0,71,255,0.28);
+  --bg:#f5f1e8;--card:#fdfcf8;--dark:#0c0b09;--dark-2:#141310;--dark-surface:#1a1917;
+  --border:#ddd8cc;--border-dark:#242220;
+  --pad:clamp(1.25rem,5vw,6rem);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden}
+
+/* ANIMATIONS */
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.fade-in{opacity:0;transition:opacity 0.9s ease}
+.fade-in.visible{opacity:1}
+[data-stagger] .fade-up:nth-child(1){transition-delay:0s}
+[data-stagger] .fade-up:nth-child(2){transition-delay:0.1s}
+[data-stagger] .fade-up:nth-child(3){transition-delay:0.2s}
+[data-stagger] .fade-up:nth-child(4){transition-delay:0.3s}
+@media(prefers-reduced-motion:reduce){.fade-up,.fade-in{opacity:1;transform:none;transition:none}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 var(--pad);transition:background 0.3s,border-color 0.3s}
+nav.scrolled{background:rgba(245,241,232,0.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;height:clamp(52px,8vh,64px);gap:2rem}
+.nav-logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(16px,2.5vw,20px);font-weight:800;color:var(--ink);text-decoration:none;letter-spacing:-0.02em;margin-right:auto}
+.nav-links{display:flex;gap:clamp(1rem,2vw,2rem)}
+.nav-links a{font-size:13px;font-weight:500;color:var(--ink-2);text-decoration:none;transition:color 0.15s}
+.nav-links a:hover{color:var(--blue)}
+.nav-cv{font-size:12px;font-weight:600;padding:7px 18px;background:var(--blue);color:#fff;border-radius:6px;text-decoration:none;transition:opacity 0.15s;white-space:nowrap}
+.nav-cv:hover{opacity:0.85}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;border:none;background:none;margin-left:auto}
+.nav-hamburger span{display:block;width:22px;height:2px;background:var(--ink);transition:all 0.25s;border-radius:2px}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* MOBILE MENU */
+.mobile-menu{display:none;position:fixed;top:clamp(52px,8vh,64px);left:0;right:0;background:rgba(245,241,232,0.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);z-index:199;padding:1.5rem var(--pad) 2rem;flex-direction:column;gap:0;border-bottom:1px solid var(--border)}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:16px;font-weight:500;color:var(--ink-2);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--border);transition:color 0.15s}
+.mobile-menu a:last-child{border-bottom:none;color:var(--blue);font-weight:600;margin-top:8px}
+.mobile-menu a:hover{color:var(--blue)}
+
+/* HERO */
+.hero{
+  min-height:100svh;
+  background:var(--bg);
+  padding:calc(clamp(52px,8vh,64px) + clamp(3rem,7vh,5rem)) var(--pad) clamp(3rem,6vh,6rem);
+  display:flex;
+  align-items:center;
+  position:relative;overflow:hidden;
+}
+.hero::before{content:'';position:absolute;top:-30%;right:-5%;width:800px;height:800px;background:radial-gradient(circle,rgba(0,71,255,0.06) 0%,transparent 65%);pointer-events:none}
+.hero-left{position:relative;z-index:2}
+.open-badge{display:inline-flex;align-items:center;gap:8px;font-size:clamp(10px,1.8vw,12px);font-weight:600;color:#16a34a;background:rgba(22,163,74,0.08);border:1px solid rgba(22,163,74,0.25);border-radius:20px;padding:5px 14px;margin-bottom:clamp(1.5rem,3vh,2.5rem);letter-spacing:0.03em}
+.pulse-dot{width:8px;height:8px;border-radius:50%;background:#16a34a;display:inline-block;flex-shrink:0;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
+.hero-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(2.4rem,7.5vw,7rem);font-weight:800;line-height:0.98;color:var(--ink);letter-spacing:-0.04em;margin-bottom:clamp(1rem,2.5vh,1.75rem)}
+.hero-name em{font-family:'Inter',sans-serif;font-style:italic;color:var(--blue)}
+.hero-tagline{font-size:clamp(13px,1.8vw,16px);line-height:1.85;color:var(--ink-2);max-width:500px;margin-bottom:clamp(1.5rem,3.5vh,2.75rem)}
+.hero-actions{display:flex;gap:clamp(8px,1.5vw,12px);flex-wrap:wrap;align-items:center}
+.btn{font-size:clamp(12px,1.6vw,13px);font-weight:600;padding:clamp(9px,1.5vh,11px) clamp(16px,2.5vw,24px);border-radius:8px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all 0.2s;line-height:1;letter-spacing:0.02em}
+.btn-glow{background:var(--blue);color:#fff;border:1px solid var(--blue);box-shadow:0 0 28px var(--blue-glow)}
+.btn-glow:hover{box-shadow:0 0 44px var(--blue-glow);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+.hero-right{position:absolute;top:0;right:0;bottom:0;width:clamp(200px,48%,55%);z-index:0;pointer-events:none;overflow:hidden}
+.hero-photo-wrap{position:absolute;inset:0}
+.hero-photo{
+  width:100%;height:100%;
+  object-fit:cover;object-position:center 8%;
+  display:block;
+  opacity:0.70;
+  filter:grayscale(15%);
+  -webkit-mask-image:linear-gradient(to right, transparent 0%, black 20%, black 100%);
+  mask-image:linear-gradient(to right, transparent 0%, black 20%, black 100%);
+}
+.hero-photo-ph{
+  position:absolute;inset:0;
+  display:none;align-items:center;justify-content:center;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(3rem,8vw,5rem);
+  font-weight:800;color:rgba(0,71,255,0.12);
+  background:linear-gradient(135deg,#e8f0ff,#f5f1e8);
+  -webkit-mask-image:linear-gradient(to right, transparent 0%, black 20%, black 100%);
+  mask-image:linear-gradient(to right, transparent 0%, black 20%, black 100%);
+}
+
+/* STATS — dynamic auto-fit */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stat{padding:clamp(1.25rem,3vh,2.25rem) var(--pad);border-right:1px solid var(--border)}
+.stat:last-child{border-right:none}
+.stat-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.6rem,3.5vw,2.8rem);font-weight:800;color:var(--blue);letter-spacing:-0.04em}
+.stat-label{font-size:clamp(11px,1.4vw,13px);color:var(--ink-3);margin-top:6px;line-height:1.55;letter-spacing:0.01em;max-width:220px}
+
+/* SECTIONS */
+.section{padding:clamp(4rem,8vh,7rem) var(--pad);position:relative;overflow:hidden;border-top:1px solid var(--border)}
+.sec-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(6rem,15vw,16rem);font-weight:800;line-height:1;position:absolute;top:1rem;right:var(--pad);opacity:0.035;letter-spacing:-0.06em;pointer-events:none;user-select:none}
+.sec-eyebrow{font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);margin-bottom:1rem}
+.sec-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.8rem,4.5vw,3.8rem);font-weight:800;letter-spacing:-0.04em;margin-bottom:clamp(2rem,4vh,3.5rem);line-height:1.05}
+.sec-title em{font-family:'Inter',sans-serif;font-style:italic}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:clamp(2rem,5vw,6rem);align-items:start}
+.about-heading{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.6rem,3.5vw,3.2rem);font-weight:800;line-height:1.05;margin-bottom:1.5rem;letter-spacing:-0.03em}
+.about-heading em{font-family:'Inter',sans-serif;font-style:italic;color:var(--blue)}
+.about-body{font-size:clamp(14px,1.8vw,16px);line-height:1.95;color:var(--ink-2)}
+.about-body p+p{margin-top:1.1rem}
+.about-cards{display:flex;flex-direction:column;gap:1rem}
+.about-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;transition:border-color 0.2s,transform 0.2s}
+.about-card:hover{border-color:var(--blue);transform:translateX(4px)}
+.about-card-label{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.about-card-val{font-size:14px;color:var(--ink);line-height:1.65}
+.about-card-val strong{color:var(--blue);font-weight:600}
+
+/* CAROUSEL */
+.carousel-section{padding:clamp(3rem,6vh,5rem) 0;overflow:hidden;position:relative;border-top:1px solid var(--border)}
+.carousel-header{padding:0 var(--pad);margin-bottom:clamp(1.5rem,3vh,2.5rem)}
+.carousel-wrap{position:relative;overflow:hidden}
+.c-fade-l,.c-fade-r{position:absolute;top:0;bottom:0;width:clamp(3rem,10vw,15rem);z-index:20;pointer-events:none}
+.c-fade-l{left:0;background:linear-gradient(to right,var(--bg) 0%,transparent 100%)}
+.c-fade-r{right:0;background:linear-gradient(to left,var(--bg) 0%,transparent 100%)}
+.c-track{display:flex;gap:clamp(12px,2vw,20px);padding:1.5rem 0 2.5rem;cursor:grab;-webkit-overflow-scrolling:touch}
+.c-track:active{cursor:grabbing}
+
+/* PROJECT CARDS — width fluid */
+.proj-card{
+  width:clamp(260px,38vw,390px);
+  flex-shrink:0;
+  background:var(--card);border:1px solid var(--border);border-radius:16px;
+  overflow:hidden;transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s;
+  cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,0.06)
+}
+.proj-card:hover{border-color:var(--blue);transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,0,0,0.1),0 0 0 1px rgba(0,71,255,0.15)}
+.proj-card-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:var(--bg)}
+.proj-card-img-ph{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#e8f0ff 0%,#f0ede8 100%);display:flex;align-items:center;justify-content:center}
+.proj-card-img-ph svg{width:32px;height:32px;opacity:0.25}
+.proj-card-body{padding:clamp(1rem,2.5vw,1.75rem)}
+.proj-card-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.proj-card-num{font-size:10px;font-weight:700;color:var(--ink-3);letter-spacing:0.1em;text-transform:uppercase;padding-top:4px}
+.proj-card-kpi{text-align:right}
+.proj-card-kpi-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(18px,3vw,24px);font-weight:800;color:var(--blue);line-height:1}
+.proj-card-kpi-lab{font-size:9px;color:var(--ink-3);text-transform:uppercase;letter-spacing:0.09em;margin-top:2px}
+.proj-card-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(13px,2vw,15px);font-weight:700;color:var(--ink);margin-bottom:5px;line-height:1.3}
+.proj-card-sub{font-size:clamp(11px,1.6vw,12px);color:var(--ink-3);margin-bottom:14px;line-height:1.5}
+.proj-card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.proj-tag{font-size:10px;font-weight:500;padding:3px 9px;background:var(--bg);color:var(--ink-2);border-radius:4px;border:1px solid var(--border)}
+.proj-card-hint{font-size:10px;color:var(--blue);opacity:0.6;letter-spacing:0.04em}
+.proj-card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:2px}
+.proj-code-badge{font-size:10px;font-weight:500;color:var(--ink-3);display:flex;align-items:center;gap:5px;opacity:0.7}
+.proj-code-badge svg{width:12px;height:12px;flex-shrink:0}
+.modal-request{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:10px 20px;background:transparent;color:var(--blue);border:1px solid var(--blue);border-radius:8px;text-decoration:none;transition:all 0.2s;margin-top:1rem}
+.modal-request:hover{background:var(--blue);color:#fff}
+.modal-request svg{width:14px;height:14px;flex-shrink:0}
+
+/* MODAL */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:500;display:flex;align-items:center;justify-content:center;padding:clamp(1rem,3vw,2rem);opacity:0;pointer-events:none;transition:opacity 0.3s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.modal.open{opacity:1;pointer-events:all}
+.modal-box{background:var(--bg);max-width:760px;width:100%;max-height:90svh;overflow-y:auto;border-radius:18px;position:relative;box-shadow:0 40px 80px rgba(0,0,0,0.55)}
+.modal-close{position:sticky;top:1rem;float:right;margin:1rem 1rem 0 0;width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:10;transition:background 0.15s,border-color 0.15s;color:var(--ink-2)}
+.modal-close:hover{background:var(--bg);border-color:var(--blue);color:var(--blue)}
+.modal-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:var(--bg)}
+.modal-img-ph{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#e8f0ff,#f0ede8);display:flex;align-items:center;justify-content:center}
+.modal-img-ph svg{width:48px;height:48px;opacity:0.2}
+.modal-body{padding:clamp(1.25rem,3vw,2.5rem)}
+.modal-meta{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem}
+.modal-num{font-size:11px;font-weight:700;color:var(--ink-3);letter-spacing:0.12em;text-transform:uppercase;padding-top:6px}
+.modal-kpi{text-align:right}
+.modal-kpi-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(24px,4vw,32px);font-weight:800;color:var(--blue);line-height:1}
+.modal-kpi-lab{font-size:10px;color:var(--ink-3);text-transform:uppercase;letter-spacing:0.09em;margin-top:3px}
+.modal-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.3rem,3vw,2.2rem);font-weight:800;color:var(--ink);margin-bottom:6px;letter-spacing:-0.03em;line-height:1.1}
+.modal-sub{font-size:14px;color:var(--ink-3);margin-bottom:1.75rem;line-height:1.5;font-style:italic}
+.modal-desc{font-size:clamp(13px,1.8vw,15px);line-height:1.9;color:var(--ink-2);margin-bottom:1.5rem}
+.modal-points{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:1.75rem}
+.modal-points li{font-size:clamp(12px,1.7vw,14px);color:var(--ink-2);padding-left:22px;position:relative;line-height:1.7}
+.modal-points li::before{content:'→';position:absolute;left:0;color:var(--blue);font-weight:500}
+.modal-tags{display:flex;flex-wrap:wrap;gap:6px}
+.modal-tag{font-size:11px;font-weight:500;padding:4px 11px;background:var(--card);color:var(--ink-2);border-radius:5px;border:1px solid var(--border)}
+
+/* EXP CARDS */
+.exp-card{width:clamp(280px,45vw,500px);flex-shrink:0;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:clamp(1.5rem,3vw,2.25rem);transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s}
+.exp-card:hover{border-color:var(--blue);transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,0.09)}
+.exp-card-period{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.9rem}
+.exp-card-role{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(15px,2.2vw,18px);font-weight:700;color:var(--ink);margin-bottom:4px;line-height:1.25}
+.exp-card-org{font-size:13px;color:var(--ink-3);margin-bottom:1.5rem;font-weight:500}
+.exp-card-bullets{list-style:none;display:flex;flex-direction:column;gap:8px}
+.exp-card-bullets li{font-size:clamp(12px,1.7vw,13px);color:var(--ink-2);padding-left:18px;position:relative;line-height:1.65}
+.exp-card-bullets li::before{content:'·';position:absolute;left:2px;color:var(--blue);font-size:18px;line-height:1.1;font-weight:700}
+.exp-card-outcome{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:1rem;padding:8px 12px;background:rgba(0,71,255,0.04);border-left:2px solid var(--blue);border-radius:0 4px 4px 0;line-height:1.55}
+
+/* EDU CARDS */
+.edu-card-c{width:clamp(260px,38vw,420px);flex-shrink:0;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:clamp(1.5rem,3vw,2.25rem);transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s}
+.edu-card-c:hover{border-color:var(--blue);transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,0.09)}
+.edu-card-year{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:1.1rem}
+.edu-card-degree{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(14px,2.2vw,17px);font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:7px}
+.edu-card-uni{font-size:13px;color:var(--ink-3);margin-bottom:1.25rem;line-height:1.45}
+.edu-card-grade{font-size:12px;font-weight:700;color:var(--ink-2);background:var(--bg);padding:5px 12px;border-radius:6px;display:inline-block;border:1px solid var(--border)}
+
+/* SKILLS MARQUEE */
+.marquee-section{padding:clamp(3rem,6vh,6rem) 0;overflow:hidden;position:relative;border-top:1px solid var(--border)}
+.marquee-header{padding:0 var(--pad);margin-bottom:clamp(2rem,4vh,3.5rem)}
+.marquee-row{display:flex;gap:10px;margin-bottom:14px;overflow:hidden}
+.marquee-track{display:flex;gap:10px;width:max-content;animation:scrollx 30s linear infinite}
+.marquee-track.rev{animation-direction:reverse;animation-duration:35s}
+.marquee-track.slow{animation-duration:40s}
+@keyframes scrollx{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.m-tag{font-size:clamp(11px,1.6vw,12px);font-weight:600;padding:clamp(7px,1.2vh,9px) clamp(12px,2vw,18px);border-radius:7px;white-space:nowrap;letter-spacing:0.02em}
+.m-blue{background:rgba(0,71,255,0.09);color:#0038cc;border:1px solid rgba(0,71,255,0.22);font-weight:700}
+.m-dim{background:rgba(12,11,9,0.07);color:var(--ink-2);border:1px solid rgba(12,11,9,0.12)}
+
+/* CONTACT */
+.contact-section{padding:clamp(4rem,8vh,8rem) var(--pad);background:var(--bg);position:relative;overflow:hidden}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:clamp(2.5rem,5vw,6rem);align-items:start}
+.contact-big{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(3rem,8vw,7rem);font-weight:800;line-height:0.95;letter-spacing:-0.05em;margin-bottom:1.5rem}
+.contact-big em{font-family:'Inter',sans-serif;font-style:italic;color:var(--blue)}
+.contact-sub{font-size:clamp(14px,1.8vw,16px);color:var(--ink-2);line-height:1.8;max-width:420px;margin-bottom:2rem}
+.contact-cv{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;padding:13px 26px;background:var(--blue);color:#fff;border-radius:9px;text-decoration:none;transition:all 0.2s;box-shadow:0 6px 24px var(--blue-glow)}
+.contact-cv:hover{transform:translateY(-2px);box-shadow:0 10px 36px var(--blue-glow)}
+.contact-links{display:flex;flex-direction:column;gap:12px}
+.contact-link{font-size:clamp(13px,1.8vw,15px);font-weight:500;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:12px;padding:clamp(0.85rem,2vh,1.1rem) clamp(1rem,2.5vw,1.4rem);background:#fff;border:1px solid var(--border);border-radius:12px;transition:all 0.2s}
+.contact-link:hover{border-color:var(--blue);color:var(--blue);transform:translateX(4px)}
+.contact-link svg{width:18px;height:18px;flex-shrink:0;opacity:0.5;transition:opacity 0.2s}
+.contact-link:hover svg{opacity:1}
+
+/* FOOTER */
+footer{padding:clamp(1.25rem,2.5vh,1.75rem) var(--pad);background:var(--card);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.foot-text{font-size:clamp(10px,1.5vw,12px);color:var(--ink-3);letter-spacing:0.03em}
+
+/* FLUID RESPONSIVE */
+/* Portrait / narrow screens */
+@media(max-width:900px){
+  .hero{min-height:auto}
+  .hero-right{opacity:0.25;width:100%}
+  .hero-photo{
+    -webkit-mask-image:linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    mask-image:linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+  }
+}
+/* Hamburger threshold */
+@media(max-width:860px){
+  .nav-links,.nav-cv{display:none}
+  .nav-hamburger{display:flex}
+}
+/* Tablet portrait */
+@media(max-width:700px){
+  .stat{border-right:none;border-bottom:1px solid var(--border)}
+  .stat:last-child{border-bottom:none}
+  footer{justify-content:center;text-align:center}
+}
+/* Landscape phones */
+@media(max-height:500px) and (orientation:landscape){
+  .hero{min-height:auto;padding-top:calc(clamp(52px,8vh,64px) + 1.5rem)}
+  .hero-name{font-size:clamp(2rem,7vh,3.5rem)}
+}
+/* iOS safe areas */
+@supports(padding:max(0px)){
+  nav{
+    padding-left:max(var(--pad),env(safe-area-inset-left));
+    padding-right:max(var(--pad),env(safe-area-inset-right));
+  }
+  .hero,.section,.carousel-section,.marquee-section,.contact-section{
+    padding-left:max(var(--pad),env(safe-area-inset-left));
+    padding-right:max(var(--pad),env(safe-area-inset-right));
+  }
+  footer{
+    padding-left:max(var(--pad),env(safe-area-inset-left));
+    padding-right:max(var(--pad),env(safe-area-inset-right));
+    padding-bottom:max(1.25rem,env(safe-area-inset-bottom));
+  }
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#top">SK</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="nav-cv" href="SriKrishnaKalyan_Resume.pdf" download>Download CV</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about">About</a>
+  <a href="#work">Work</a>
+  <a href="#experience">Experience</a>
+  <a href="#education">Education</a>
+  <a href="#skills">Skills</a>
+  <a href="#contact">Contact</a>
+  <a href="SriKrishnaKalyan_Resume.pdf" download>Download CV</a>
+</div>
+
+<section class="hero" id="top">
+  <div class="hero-left">
+    <div class="open-badge fade-in"><span class="pulse-dot"></span>Available · Adelaide, AU</div>
+    <h1 class="hero-name fade-up">Turning messy<br>data into<br><em>decisions.</em></h1>
+    <p class="hero-tagline fade-up">I work the messy middle. Writing the SQL, checking whether the experiment was even valid, and getting to the cause behind a number that moved. An engineering background and two years on live production systems mean I know what happens after the recommendation lands.<br>SQL · Power BI · Python · Experiment design · Master of AI & ML, University of Adelaide (GPA 6.1) · Full working rights (Subclass 485).</p>
+    <div class="hero-actions fade-up">
+      <a class="btn btn-glow" href="SriKrishnaKalyan_Resume.pdf" download>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download CV
+      </a>
+      <a class="btn btn-ghost" href="#work">View work →</a>
+      <a class="btn btn-ghost" href="#contact">Get in touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-photo-wrap fade-in">
+      <img class="hero-photo" id="heroPhoto" src="images/profile.jpg" alt="Sri Krishna Kalyan Bandaru">
+      <div class="hero-photo-ph" id="heroPh"><span>SK</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS — rendered by JS, add/remove from STATS array below -->
+<div class="stats" id="statsGrid"></div>
+
+<section class="section" style="background:var(--bg)" id="about">
+  <div class="sec-num" style="color:var(--ink)">00</div>
+  <p class="sec-eyebrow fade-up">About</p>
+  <div class="about-grid">
+    <div>
+      <h2 class="about-heading fade-up">Analyst who gets to <em>the cause</em></h2>
+      <div class="about-body fade-up">
+        <p>I work on the questions a business actually asks. Why did this number move, was the test we ran even valid, and what should we do about it on Monday.</p>
+        <p>I hold a Master's in Artificial Intelligence and Machine Learning from the University of Adelaide, and a Master's in Mechatronics from Tor Vergata University of Rome. Before that I spent two years as a Project Engineer at Wipro Technologies, triaging SAP production incidents for UK industrial clients on a 24/7 roster.</p>
+        <p>That mix is the point. I can build the model when a model is the right answer, and I can tell when it isn't. Most of the time the answer is a clean query, an honest chart, and someone who can explain it to the person who has to act.</p>
+        <p>Based in Adelaide, SA. Open to Data Analyst, Business Analyst and Data Scientist roles anywhere in Australia.</p>
+      </div>
+    </div>
+    <div class="about-cards" id="aboutCards" data-stagger></div>
+  </div>
+</section>
+
+<!-- PROJECTS — rendered by JS -->
+<section class="carousel-section" style="background:var(--bg)" id="work">
+  <div class="sec-num" style="color:var(--ink)">01</div>
+  <div class="carousel-header">
+    <p class="sec-eyebrow fade-up">Selected work</p>
+    <h2 class="sec-title fade-up">Projects that moved <em>the needle</em></h2>
+    <p class="fade-up" style="font-size:12px;color:var(--ink-3);margin-top:-1.5rem">Click any card to see full details</p>
+  </div>
+  <div style="position:relative">
+    <div class="c-fade-l"></div>
+    <div class="carousel-wrap" id="projWrap">
+      <div class="c-track" id="projTrack"></div>
+    </div>
+    <div class="c-fade-r"></div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal" id="projModal" role="dialog" aria-modal="true">
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+    <div id="modalImgWrap"></div>
+    <div class="modal-body">
+      <div class="modal-meta">
+        <span class="modal-num" id="modalNum"></span>
+        <div class="modal-kpi"><div class="modal-kpi-val" id="modalKpiVal"></div><div class="modal-kpi-lab" id="modalKpiLab"></div></div>
+      </div>
+      <h3 class="modal-title" id="modalTitle"></h3>
+      <p class="modal-sub" id="modalSub"></p>
+      <p class="modal-desc" id="modalDesc"></p>
+      <ul class="modal-points" id="modalPoints"></ul>
+      <div class="modal-tags" id="modalTags"></div>
+      <a class="modal-request" id="modalRequest" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="m9 9-3 3 3 3m6-6 3 3-3 3"/></svg>
+        Request code access
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE — rendered by JS -->
+<section class="carousel-section" style="background:var(--bg)" id="experience">
+  <div class="sec-num" style="color:var(--ink)">02</div>
+  <div class="carousel-header">
+    <p class="sec-eyebrow fade-up">Experience</p>
+    <h2 class="sec-title fade-up">Where I've done <em>the work</em></h2>
+  </div>
+  <div style="position:relative">
+    <div class="c-fade-l"></div>
+    <div class="carousel-wrap" id="expWrap">
+      <div class="c-track" id="expTrack"></div>
+    </div>
+    <div class="c-fade-r"></div>
+  </div>
+</section>
+
+<!-- EDUCATION — rendered by JS -->
+<section class="carousel-section" style="background:var(--bg)" id="education">
+  <div class="sec-num" style="color:var(--ink)">03</div>
+  <div class="carousel-header">
+    <p class="sec-eyebrow fade-up">Education</p>
+    <h2 class="sec-title fade-up">Three degrees. <em>Three continents.</em></h2>
+  </div>
+  <div style="position:relative">
+    <div class="c-fade-l"></div>
+    <div class="carousel-wrap" id="eduWrap">
+      <div class="c-track" id="eduTrack"></div>
+    </div>
+    <div class="c-fade-r"></div>
+  </div>
+</section>
+
+<!-- SKILLS MARQUEE — rendered by JS -->
+<section class="marquee-section" style="background:var(--bg)" id="skills">
+  <div class="sec-num">04</div>
+  <div class="marquee-header">
+    <p class="sec-eyebrow fade-up">Technical stack</p>
+    <h2 class="sec-title fade-up">The tools I <em>reach for</em></h2>
+  </div>
+  <div id="marqueeRows"></div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="sec-num" style="color:var(--ink)">05</div>
+  <div class="contact-grid">
+    <div class="fade-up">
+      <h2 class="contact-big">Get in<br><em>touch.</em></h2>
+      <p class="contact-sub">Open to Data Analyst, Business Analyst and Data Scientist roles anywhere in Australia. Full working rights (Subclass 485), and available to relocate.</p>
+      <a class="contact-cv" href="SriKrishnaKalyan_Resume.pdf" download>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download CV
+      </a>
+    </div>
+    <div class="contact-links fade-up">
+      <a class="contact-link" href="mailto:srikrishnakalyan7@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        srikrishnakalyan7@gmail.com
+      </a>
+      <a class="contact-link" href="tel:0430037548">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +61 430 037 548
+      </a>
+      <a class="contact-link" href="https://linkedin.com/in/sri-krishna-kalyan-bandaru-766bb112a" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        linkedin.com/in/sri-krishna-kalyan-bandaru
+      </a>
+      <a class="contact-link" href="https://github.com/SriKrishnaKalyan7" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="foot-text">Sri Krishna Kalyan Bandaru · Adelaide, SA</span>
+  <span class="foot-text">© 2025</span>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   DATA — edit these arrays to add/remove items dynamically.
+   The page rebuilds itself from these arrays on every load.
+═══════════════════════════════════════════════════════════════ */
+
+const STATS = [
+  { num:'100K',   label:'E-commerce orders analysed in SQL across 8 relational datasets on BigQuery' },
+  { num:'R$350K', label:'GMV traced back to one carrier failure that had been blamed on the sellers' },
+  { num:'1',      label:'Broken A/B test caught before anyone drew a conclusion from the read-out' },
+  { num:'6.1',    label:'GPA out of 7.0 · Master of AI &amp; Machine Learning, University of Adelaide' },
+];
+
+const ABOUT_CARDS = [
+  { label:'Status',      val:'<strong style="color:#22c55e">Available now</strong> · Actively interviewing · Full working rights (Subclass 485)' },
+  { label:'Location',    val:'Based in <strong>Adelaide, SA</strong> · Open to relocate anywhere in Australia' },
+  { label:'Focus Areas', val:'Data &amp; Business Analytics · SQL &amp; Dashboards · Experiment Design · Machine Learning' },
+  { label:'Contact',     val:'srikrishnakalyan7@gmail.com · +61 430 037 548' },
+];
+
+const PROJECTS = [
+  {
+    num:'01', kpiVal:'100K', kpiLab:'orders',
+    title:'Business Analytics — Olist Marketplace',
+    sub:'Root-cause analysis · SQL, Power BI & A/B testing',
+    img:'images/proj-olist.png',
+    desc:'I gave myself a week as the newly-hired analyst at Olist, a real Brazilian marketplace, and worked through the questions a business actually asks. Review scores crashed for two straight months in early 2018. Everyone blamed the sellers and the products, but the real cause turned out to be a carrier delivery failure concentrated in Rio. This project isn\'t about models. It\'s about the craft: writing the SQL, using judgment, and explaining a decision to someone who has to act on it.',
+    points:[
+      'Traced a two-month review-score collapse to a carrier delivery failure concentrated in Rio. Late orders scored 1.7★ lower than on-time ones.',
+      'Put real numbers on it: around 2,500 late orders, R$350k of GMV affected, and 54% of them landing at one star.',
+      'Built a 13-query SQL request bank covering five different stakeholder teams.',
+      'Wrote up an A/B test with proper statistics, and caught that the experiment\'s randomisation was broken before anyone drew conclusions from it.',
+      'Delivered a 3-page Power BI dashboard and an Excel what-if model for running business scenarios.',
+      'No machine learning here, on purpose. It was a ground-up look at the analyst craft.',
+    ],
+    tags:['SQL','MySQL','Power BI','Statistics','A/B Testing','Excel'],
+    cardTags:['SQL','MySQL','Power BI','A/B Testing'],
+  },
+  {
+    num:'02', kpiVal:'137%', kpiLab:'order value growth',
+    title:'E-Commerce Business Intelligence — Brazil Market',
+    sub:'SQL on Google BigQuery · 8 relational datasets',
+    img:'images/proj-bigquery.png',
+    desc:'100,000 orders spread across eight tables: customers, orders, payments, freight, geolocation. The brief was deliberately open-ended, which is the realistic version of the job. I worked it in SQL on BigQuery until the shape of the business came out, then wrote up what the numbers meant for people who will never open a query editor.',
+    points:[
+      'Identified a 137% rise in order value from 2017 to 2018 as the headline performance indicator.',
+      'Wrote multi-table joins, window functions and date-based aggregations to surface order seasonality, peaking in May, July and August.',
+      'Mapped freight cost disparities across 27 Brazilian states and the delivery performance gaps sitting behind them.',
+      'Turned every finding into a specific recommendation with an owner, rather than a chart nobody acts on.',
+    ],
+    tags:['SQL','Google BigQuery','Window Functions','Joins','Data Modelling','Business Intelligence'],
+    cardTags:['SQL','BigQuery','Window Functions','BI'],
+  },
+  {
+    num:'03', kpiVal:'8.8K', kpiLab:'titles',
+    title:'Content Strategy Analysis — Netflix Catalogue',
+    sub:'Python EDA · Missing-data strategy · Release timing',
+    img:'images/proj-netflix.png',
+    desc:'End-to-end exploratory analysis of the Netflix catalogue in Python. The interesting part was not the charts, it was the missing data. Director, cast and country were absent across large stretches of the catalogue, and simply dropping those rows would have quietly biased every conclusion that came after.',
+    points:[
+      'Analysed 8,800+ titles with pandas, Matplotlib and Seaborn to surface content distribution, seasonal additions and genre performance.',
+      'Designed a multi-layered groupby-mode imputation strategy that held data integrity across a 202,000-row unnested dataset.',
+      'Found the release-timing pattern: December and July, tracking the holiday peaks.',
+      'Wrote the recommendations on genre priority and content frequency in plain business language, for an audience that reads slides not notebooks.',
+    ],
+    tags:['Python','pandas','Matplotlib','Seaborn','Exploratory Data Analysis','Data Cleaning'],
+    cardTags:['Python','pandas','Seaborn','EDA'],
+  },
+  {
+    num:'04', kpiVal:'81%', kpiLab:'accuracy',
+    title:"Predictive Analytics — Alzheimer's Progression",
+    sub:'Clinical signal data · 81% accuracy, AUC 0.74',
+    img:'images/proj-alz.png',
+    desc:"A predictive pipeline for Alzheimer's progression built from complex, ambiguous multi-channel neurological signal data. In a clinical domain the validation matters more than the headline number, so the work went into making sure the result would survive contact with a patient it had never seen.",
+    points:[
+      'Reached 81% accuracy identifying progression from noisy multi-channel MEG time-series.',
+      'Used leave-one-patient-out cross-validation to rule out subject-level leakage inflating the result.',
+      'Reported AUC 0.74 alongside accuracy, because accuracy alone hides class imbalance.',
+      'Benchmarked transfer learning across AlexNet, ResNet18 and GoogLeNet against an SVM baseline, with Grad-CAM to check the model was reading signal and not artefact.',
+    ],
+    tags:['Python','Statistical Modelling','PyTorch','ResNet18','SVM','Scikit-learn','LOOCV','Grad-CAM'],
+    cardTags:['Python','Statistical Validation','LOOCV','Grad-CAM'],
+  },
+  {
+    num:'05', kpiVal:'0.642', kpiLab:'mAP50',
+    title:'Autonomous UAV Object Detection',
+    sub:'Failure-mode analysis · ROS2 + YOLO',
+    img:'images/proj-uav.png',
+    desc:'End-to-end autonomous drone navigation combining EGO-Planner obstacle avoidance with YOLO real-time detection, built and validated in simulation. The analytical spine of the work was diagnosing why runs kept failing and quantifying the accuracy against compute trade-off before anything was committed to hardware.',
+    points:[
+      'Documented 4 systematic failure modes across simulated runs, then benchmarked 3 candidate planning algorithms against them to inform the team\'s choice',
+      'Diagnosed repeated failures down to feature-tracking collapse in a low-texture environment; the replacement tracker lifted features per frame from about 5 to 2,000, against the 15 to 20 needed for a stable position estimate',
+      'Benchmarked 5 detection configurations on VisDrone (548 validation images, 28,000+ instances): a MobileNetV2 backbone cut inference cost 76% at half the mAP50',
+      'Migrated the EGO-Planner stack ROS1 to ROS2 and containerised the inference stack on NVIDIA Jetson Nano and Orin',
+    ],
+    tags:['ROS2','YOLOv12s','EGO-Planner','VINS-Fusion','ArduPilot SITL','Gazebo','SuperPoint','NVIDIA Jetson'],
+    cardTags:['ROS2','YOLOv12s','Benchmarking','NVIDIA Jetson'],
+  },
+  {
+    num:'06', kpiVal:'3.5K', kpiLab:'images',
+    title:'Construction Defect Segmentation',
+    sub:'Model performance analysis · Production deployed',
+    img:'images/proj-defect.png',
+    desc:'A full segmentation pipeline for construction defect identification, and the comparative analysis that told the client when to stop tuning it. Deployed via FastAPI and Streamlit so people without model access could run it themselves.',
+    points:[
+      'Annotated a 3,508-image dataset across 5 defect classes, exporting to both YOLO and COCO so one labelled corpus fed both model families',
+      'Benchmarked 4 architectures on a 519-image validation set and selected on accuracy against compute: 2.1x the mask mAP50-95 of Mask R-CNN at roughly half the compute',
+      'Diagnosed that three variants clustered within 0.007 mAP despite a 43% spread in compute, concluding the ceiling was architectural rather than a tuning problem',
+      'Built a FastAPI backend and Streamlit dashboard so site managers could run segmentation without engineering involvement',
+    ],
+    tags:['YOLOv8m-seg','Detectron2','FastAPI','Streamlit','Roboflow','PyTorch','Benchmarking'],
+    cardTags:['Benchmarking','YOLOv8m-seg','FastAPI','Streamlit'],
+  },
+  {
+    num:'07', kpiVal:'97%', kpiLab:'accuracy',
+    title:'Embedded Neural Network on STM32',
+    sub:'On-device inference · No cloud dependency',
+    img:'images/proj-stm32.png',
+    desc:'MobileNet-based CNN for food classification deployed directly to an STM32H747I-DISCO microcontroller. Model compression and post-training quantisation to INT8 via X-CUBE-AI to meet strict flash and RAM constraints, with no server and no connectivity required.',
+    points:[
+      'Trained a MobileNet-based CNN and quantised to INT8 for microcontroller deployment',
+      'Converted the Keras model to C via X-CUBE-AI for the STM32H747I-DISCO',
+      'Achieved 97% accuracy under strict memory and compute constraints',
+      'Profiled latency and memory footprint using IAR Embedded Workbench',
+    ],
+    tags:['STM32H747I','MobileNet CNN','X-CUBE-AI','STM32CubeMX','TensorFlow Lite','Keras','C/C++'],
+    cardTags:['STM32H747I','MobileNet CNN','X-CUBE-AI','C/C++'],
+  },
+  {
+    num:'08', kpiVal:'30', kpiLab:'Cum Laude',
+    title:'Emotion-Responsive Autonomous Robot Car',
+    sub:'Edge-cloud CV architecture · Arduino + Deep CNN',
+    img:'images/proj-emotion-robot.png',
+    desc:'A 4-wheeled Arduino robot car, designed and physically built, with real-time facial expression detection. The CNN runs on a PC and transmits detected emotions over Bluetooth to the Arduino, which triggers matching motion sequences and speech. Awarded 30/30 Cum Laude.',
+    points:[
+      'Edge-cloud split: CNN on PC transmits emotion over Bluetooth HC-06 to Arduino at 9600 baud',
+      'CNN trained on FER-2013 (28,709 images, 7 classes) reaching 62% against a 14.3% random baseline',
+      '4 conv blocks with batch norm, max pooling and dropout, plus Haar Cascade face detection via OpenCV',
+      'Two modes: light-following via optical sensors, and emotion-driven motion with speech synthesis',
+      'Custom PCB layout and L298N dual H-bridge motor driver, awarded 30 Cum Laude by the examining panel',
+    ],
+    tags:['Arduino','TensorFlow/Keras','OpenCV','Python','Bluetooth HC-06','FER-2013','PCB Design'],
+    cardTags:['Arduino','TensorFlow','OpenCV','Bluetooth'],
+  },
+];
+
+const EXPERIENCE = [
+  {
+    period:'Feb 2025 – Aug 2025 · Adelaide, Australia',
+    role:'Data & Systems Analyst — Research Placement',
+    org:'Auto-ID Lab, University of Adelaide',
+    outcome:'Diagnosed why a research platform kept failing, quantified the trade-offs behind the fix, and rebuilt the parts responsible, unblocking the lab\'s autonomous navigation work on current hardware.',
+    bullets:[
+      'Analysed planner performance across simulated runs to document 4 systematic failure modes, then benchmarked 3 candidate algorithms against them to inform the team\'s selection',
+      'Diagnosed repeated failures down to feature-tracking collapse in a low-texture environment; the replacement tracker lifted features per frame from about 5 to 2,000, against the 15 to 20 needed for a stable position estimate',
+      'Trained and benchmarked 5 detection configurations on VisDrone (548 validation images, 28,000+ instances), quantifying accuracy against compute: a MobileNetV2 backbone cut inference cost 76% at half the mAP50',
+      'Ported the EGO-Planner stack (5 ROS packages) from ROS1 to ROS2 and re-targeted the controller layer to ArduPilot, restoring a build that no longer worked on current hardware',
+    ],
+  },
+  {
+    period:'Aug 2024 – Nov 2024 · Remote, India',
+    role:'ML Engineer Intern — Data & Model Performance Analysis',
+    org:'Proto Corp Pvt Ltd',
+    outcome:'Delivered the client\'s first automated defect detection capability, and the comparative analysis that told them when further tuning had stopped paying.',
+    bullets:[
+      'Assembled and annotated a 3,508-image dataset across 5 defect classes, exporting to both YOLO and COCO so one labelled corpus fed both model families without re-annotation',
+      'Benchmarked 4 architectures on a 519-image validation set and selected on accuracy against compute: 2.1x the mask mAP50-95 of Mask R-CNN at roughly half the compute',
+      'Diagnosed that three variants clustered within 0.007 mAP despite a 43% spread in compute, concluding the ceiling was architectural rather than a tuning problem, and recommended the direction the team took next',
+      'Built a FastAPI backend and Streamlit frontend so testers and developers without model access could run the models and export results themselves',
+    ],
+  },
+  {
+    period:'May 2018 – Sep 2019 · India',
+    role:'Project Engineer — SAP Production Support',
+    org:'Wipro Technologies',
+    outcome:'Ran incident triage on a 24/7 roster and turned recurring error patterns into targeted fixes, instead of clearing the same failure every shift.',
+    bullets:[
+      'Triaged several hundred SAP transaction errors per shift, diagnosing each well enough to route it to the responsible team or to onsite stakeholders in the UK',
+      'Tracked recurring and high-volume error patterns filling the queue and escalated them with supporting detail, so fixes targeted root causes',
+      'Took over coordination of a 5-person support team, owning the shift roster and producing end-of-shift reports on error volumes, resolutions and open escalations',
+    ],
+  },
+];
+
+const EDUCATION = [
+  { year:'2023 – 2025', degree:'Master of Artificial Intelligence &amp; Machine Learning', uni:'University of Adelaide, Australia', grade:'GPA 6.1 / 7.0' },
+  { year:'2020 – 2022', degree:'Master of Mechatronics Engineering', uni:'Tor Vergata University of Rome, Italy', grade:'106 / 110' },
+  { year:'2014 – 2018', degree:'Bachelor of Technology in Mechanical Engineering', uni:'KL University, India', grade:'First Class with Distinction' },
+];
+
+const SKILLS = [
+  { row:0, tags:['SQL','Power BI','Tableau','BigQuery','Python','pandas','Excel','A/B Testing','Statistical Analysis','Dashboard Design','MySQL','Data Modelling'], blue:true },
+  { row:1, tags:['NumPy','Matplotlib','Seaborn','Window Functions','Root Cause Analysis','Requirements Gathering','Streamlit','Scikit-learn','Git / GitHub','Confluence','Agile / Scrum','SAP','Azure','AWS'], blue:false, rev:true },
+  { row:2, tags:['PyTorch','TensorFlow/Keras','Computer Vision','YOLO v5–v12','ROS2','FastAPI','Docker','OpenCV','NVIDIA Jetson','MATLAB','C/C++','Java'], blue:null, slow:true },
+];
+
+/* ═══════════════════════════════════════════════════════════════
+   RENDER FUNCTIONS — these read the arrays above and build the DOM
+═══════════════════════════════════════════════════════════════ */
+
+const PH_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="m3 9 4-4 4 4 4-4 4 4"/><circle cx="8.5" cy="15.5" r="2.5"/></svg>`;
+
+function renderStats() {
+  const grid = document.getElementById('statsGrid');
+  grid.innerHTML = STATS.map(s => `
+    <div class="stat fade-up">
+      <div class="stat-num">${s.num}</div>
+      <div class="stat-label">${s.label}</div>
+    </div>`).join('');
+}
+
+function renderAboutCards() {
+  const el = document.getElementById('aboutCards');
+  el.innerHTML = ABOUT_CARDS.map(c => `
+    <div class="about-card fade-up">
+      <div class="about-card-label">${c.label}</div>
+      <div class="about-card-val">${c.val}</div>
+    </div>`).join('');
+}
+
+function renderProjects() {
+  const track = document.getElementById('projTrack');
+  track.innerHTML = PROJECTS.map(p => `
+    <div class="proj-card" onclick="openModal(${JSON.stringify(p).replace(/"/g,'&quot;')})">
+      <div class="proj-card-img-wrap">
+        <img class="proj-card-img" src="${p.img}" alt="${p.title}"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="proj-card-img-ph" style="display:none">${PH_SVG}</div>
+      </div>
+      <div class="proj-card-body">
+        <div class="proj-card-row">
+          <span class="proj-card-num">${p.num}</span>
+          <div class="proj-card-kpi">
+            <div class="proj-card-kpi-val">${p.kpiVal}</div>
+            <div class="proj-card-kpi-lab">${p.kpiLab}</div>
+          </div>
+        </div>
+        <div class="proj-card-title">${p.title}</div>
+        <div class="proj-card-sub">${p.sub}</div>
+        <div class="proj-card-tags">${p.cardTags.map(t=>`<span class="proj-tag">${t}</span>`).join('')}</div>
+        <div class="proj-card-footer">
+          <div class="proj-code-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="m9 9-3 3 3 3m6-6 3 3-3 3"/></svg>
+            Code on request
+          </div>
+          <div class="proj-card-hint">Details →</div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function renderExperience() {
+  const track = document.getElementById('expTrack');
+  track.innerHTML = EXPERIENCE.map(e => `
+    <div class="exp-card">
+      <div class="exp-card-period">${e.period}</div>
+      <div class="exp-card-role">${e.role}</div>
+      <div class="exp-card-org">${e.org}</div>
+      ${e.outcome ? '<div class="exp-card-outcome">' + e.outcome + '</div>' : ''}
+      <ul class="exp-card-bullets">${e.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>
+    </div>`).join('');
+}
+
+function renderEducation() {
+  const track = document.getElementById('eduTrack');
+  track.innerHTML = EDUCATION.map(e => `
+    <div class="edu-card-c">
+      <div class="edu-card-year">${e.year}</div>
+      <div class="edu-card-degree">${e.degree}</div>
+      <div class="edu-card-uni">${e.uni}</div>
+      <span class="edu-card-grade">${e.grade}</span>
+    </div>`).join('');
+}
+
+function renderSkills() {
+  const container = document.getElementById('marqueeRows');
+  container.innerHTML = SKILLS.map(row => {
+    const cls = ['marquee-track', row.rev ? 'rev' : '', row.slow ? 'slow' : ''].filter(Boolean).join(' ');
+    const tags = [...row.tags, ...row.tags].map(t => {
+      const tagCls = row.blue === true ? 'm-blue' : row.blue === false ? 'm-dim' : (t === 'PyTorch'||t === 'Computer Vision'||t === 'ROS2'||t === 'FastAPI') ? 'm-blue' : 'm-dim';
+      return `<span class="m-tag ${tagCls}">${t}</span>`;
+    }).join('');
+    return `<div class="marquee-row"><div class="${cls}">${tags}</div></div>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MODAL
+═══════════════════════════════════════════════════════════════ */
+const modal = document.getElementById('projModal');
+
+function openModal(p) {
+  // Image or placeholder
+  const imgWrap = document.getElementById('modalImgWrap');
+  imgWrap.innerHTML = `
+    <img class="modal-img" src="${p.img}" alt="${p.title}"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="modal-img-ph" style="display:none">${PH_SVG}</div>`;
+
+  document.getElementById('modalNum').textContent = p.num;
+  document.getElementById('modalKpiVal').textContent = p.kpiVal;
+  document.getElementById('modalKpiLab').textContent = p.kpiLab;
+  document.getElementById('modalTitle').textContent = p.title;
+  document.getElementById('modalSub').textContent = p.sub;
+  document.getElementById('modalDesc').textContent = p.desc;
+
+  const ul = document.getElementById('modalPoints');
+  ul.innerHTML = p.points.map(pt => `<li>${pt}</li>`).join('');
+
+  const tags = document.getElementById('modalTags');
+  tags.innerHTML = p.tags.map(t => `<span class="modal-tag">${t}</span>`).join('');
+
+  // Pre-filled mailto for code access request
+  const subject = encodeURIComponent(`Code Access Request — ${p.title}`);
+  const body = encodeURIComponent(`Hi Sri Krishna,\n\nI came across your portfolio and I'm interested in reviewing the code for "${p.title}".\n\nCould you please share access?\n\nThanks`);
+  document.getElementById('modalRequest').href = `mailto:srikrishnakalyan7@gmail.com?subject=${subject}&body=${body}`;
+
+  document.getElementById('modalBox').scrollTop = 0;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() { modal.classList.remove('open'); document.body.style.overflow = ''; }
+document.getElementById('modalClose').addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+
+/* ═══════════════════════════════════════════════════════════════
+   CAROUSEL
+═══════════════════════════════════════════════════════════════ */
+class Carousel {
+  constructor(wrapId, trackId) {
+    this.wrap = document.getElementById(wrapId);
+    this.track = document.getElementById(trackId);
+    if (!this.wrap || !this.track) return;
+    this.origCards = [...this.track.children];
+    this.n = this.origCards.length;
+    this.busy = false; this.paused = false;
+
+    // Clone cards 3x so there's always enough runway on both sides
+    // Layout: [clone-set-A] [original] [clone-set-B] [clone-set-C]
+    const cloneSet = (suffix) => this.origCards.forEach(c => {
+      const cl = c.cloneNode(true);
+      cl.setAttribute('aria-hidden','true');
+      this.track.appendChild(cl);
+    });
+    cloneSet('b'); cloneSet('c'); cloneSet('d');
+
+    // Start at the first real card (index n = one full set in)
+    this.step = this.n;
+
+    // Touch/drag support
+    let startX = 0;
+    this.track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
+    this.track.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) dx < 0 ? this._next() : this._prev();
+    }, {passive:true});
+
+    window.addEventListener('resize', () => this._m(), {passive:true});
+    this._m();
+    // 1 second interval
+    setInterval(() => this._next(), 2000);
+    this.wrap.addEventListener('mouseenter', () => this.paused = true);
+    this.wrap.addEventListener('mouseleave', () => this.paused = false);
+  }
+  _m() {
+    if (!this.origCards[0]) return;
+    const gap = parseFloat(getComputedStyle(this.track).gap) || 20;
+    this.cw = this.origCards[0].getBoundingClientRect().width + gap;
+    const vw = this.wrap.getBoundingClientRect().width;
+    const cardW = this.origCards[0].getBoundingClientRect().width;
+    this.offset = (vw - cardW) / 2;
+    this._apply(false);
+  }
+  _apply(animate = true) {
+    if (!animate) this.track.style.transition = 'none';
+    this.track.style.transform = `translateX(${this.offset - this.step * this.cw}px)`;
+  }
+  _next() {
+    if (this.paused || this.busy) return;
+    this.busy = true;
+    this.step++;
+    this.track.style.transition = 'transform 0.75s cubic-bezier(0.4,0,0.2,1)';
+    this._apply();
+    setTimeout(() => {
+      // Silently reset to equivalent position in the middle clone set
+      // so we never run out of cards — user never sees the jump
+      if (this.step >= this.n * 3) {
+        this.step -= this.n;
+        this._apply(false);
+      }
+      this.busy = false;
+    }, 780);
+  }
+  _prev() {
+    if (this.busy) return;
+    this.busy = true;
+    this.step--;
+    this.track.style.transition = 'transform 0.75s cubic-bezier(0.4,0,0.2,1)';
+    this._apply();
+    setTimeout(() => {
+      // Silently reset if we've gone too far back
+      if (this.step < this.n) {
+        this.step += this.n;
+        this._apply(false);
+      }
+      this.busy = false;
+    }, 780);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HERO PHOTO — external file, graceful fallback
+═══════════════════════════════════════════════════════════════ */
+function loadHeroPhoto() {
+  const img = document.getElementById('heroPhoto');
+  const ph  = document.getElementById('heroPh');
+  if (!img || !ph) return;
+  const showPh = () => { if(img) img.style.display='none'; if(ph) ph.style.display='flex'; };
+  const showImg = () => { if(img) img.style.display='block'; if(ph) ph.style.display='none'; };
+  img.addEventListener('error', showPh);
+  img.addEventListener('load', showImg);
+  if (img.complete && img.naturalWidth === 0) showPh();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   NAV / SCROLL
+═══════════════════════════════════════════════════════════════ */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), {passive:true});
+
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  hamburger.classList.toggle('open', open);
+  hamburger.setAttribute('aria-expanded', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  mobileMenu.classList.remove('open'); hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-expanded','false'); document.body.style.overflow = '';
+}));
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLL OBSERVER — fade animations
+═══════════════════════════════════════════════════════════════ */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+    else e.target.classList.remove('visible');
+  });
+}, {threshold:0.08, rootMargin:'0px 0px -30px 0px'});
+
+/* ═══════════════════════════════════════════════════════════════
+   INIT — render everything then wire up
+═══════════════════════════════════════════════════════════════ */
+renderStats();
+renderAboutCards();
+renderProjects();
+renderExperience();
+renderEducation();
+renderSkills();
+loadHeroPhoto();
+
+// Wire up carousels after DOM is rendered
+new Carousel('projWrap','projTrack');
+new Carousel('expWrap','expTrack');
+new Carousel('eduWrap','eduTrack');
+
+// Observe all fade elements (rendered dynamically too)
+document.querySelectorAll('.fade-up,.fade-in').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
